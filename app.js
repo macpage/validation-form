@@ -1,5 +1,6 @@
 const mail = document.querySelector('#mail');
 const country = document.querySelector('#country');
+const zip = document.querySelector('#zip');
 
 function checkMail() {
   console.log('bro');
@@ -18,6 +19,7 @@ function checkMail() {
     }
     mail.parentNode.insertBefore(validText, mail.nextElementSibling);
   });
+  mail.required = true;
 }
 
 function checkCountry() {
@@ -30,7 +32,15 @@ function checkCountry() {
       country.reportValidity();
     }
   });
+  country.required = true;
+}
+
+function checkZip() {
+  zip.setAttribute('min', 4);
+  zip.setAttribute('max', 6);
+  zip.required = true;
 }
 
 checkMail();
 checkCountry();
+checkZip();
