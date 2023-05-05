@@ -1,4 +1,5 @@
 const mail = document.querySelector('#mail');
+const country = document.querySelector('#country');
 
 function checkMail() {
   console.log('bro');
@@ -19,4 +20,17 @@ function checkMail() {
   });
 }
 
+function checkCountry() {
+  country.addEventListener('keyup', (e) => {
+    if (/^[a-zA-Z]+$/.test(country.value)) {
+      console.log('lesgo');
+      country.setCustomValidity('');
+    } else {
+      country.setCustomValidity('Ayoo thats not a country!');
+      country.reportValidity();
+    }
+  });
+}
+
 checkMail();
+checkCountry();
