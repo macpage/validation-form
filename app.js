@@ -1,6 +1,8 @@
 const mail = document.querySelector('#mail');
 const country = document.querySelector('#country');
 const zip = document.querySelector('#zip');
+const pw = document.querySelector('#pw');
+const cpw = document.querySelector('#pw');
 
 function checkMail() {
   console.log('bro');
@@ -36,11 +38,31 @@ function checkCountry() {
 }
 
 function checkZip() {
-  zip.setAttribute('min', 4);
-  zip.setAttribute('max', 6);
+  zip.setAttribute('min', 1000);
+  zip.setAttribute('max', 999999);
   zip.required = true;
+}
+
+function checkPw() {
+  pw.setAttribute('minlength', 8);
+  pw.setAttribute('maxlength', 32);
+  pw.required = true;
+  strongRegex = new RegExp(
+    '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})'
+  );
+  pw.addEventListener('keyup', () => {
+    if (strongRegex.test(pw.value)) {
+      console.log('safe');
+      pw.setCustomValidity('');
+    } else {
+      console.log('not safe');
+      pw.setCustomValidity('Bro willst du gehackt werden?');
+      pw.reportValidity();
+    }
+  });
 }
 
 checkMail();
 checkCountry();
 checkZip();
+checkPw();
