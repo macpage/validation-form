@@ -7,20 +7,17 @@ const submit = document.querySelector('#submit');
 
 function checkMail() {
   console.log('bro');
-  const validText = document.createElement('p');
-  validText.style.margin = '0';
   mail.addEventListener('keyup', () => {
     for (let i = 0; i < mail.value.length; i++) {
       if (mail.value[i] == '@') {
-        validText.style.color = 'green';
-        validText.innerHTML = 'valid email';
+        mail.style.borderColor = 'green';
+        mail.setCustomValidity('');
         break;
       } else {
-        validText.style.color = 'red';
-        validText.innerHTML = 'invalid email';
+        mail.style.borderColor = 'red';
+        mail.setCustomValidity('Invalid Email');
       }
     }
-    mail.parentNode.insertBefore(validText, mail.nextElementSibling);
   });
   mail.required = true;
 }
@@ -31,6 +28,7 @@ function checkCountry() {
       console.log('lesgo');
       country.setCustomValidity('');
     } else {
+      country.style.borderColor = 'red';
       country.setCustomValidity('Ayoo thats not a country!');
       country.reportValidity();
     }
@@ -42,6 +40,13 @@ function checkZip() {
   zip.setAttribute('min', 1000);
   zip.setAttribute('max', 999999);
   zip.required = true;
+  zip.addEventListener('keyup', () => {
+    if (zip.value < 1000 || zip.value > 999999) {
+      zip.style.borderColor = 'red';
+    } else {
+      zip.style.borderColor = 'green';
+    }
+  });
 }
 
 function checkPw() {
@@ -57,7 +62,10 @@ function checkPw() {
       pw.setCustomValidity('');
     } else {
       console.log('not safe');
-      pw.setCustomValidity('Bro willst du gehackt werden?');
+      pw.style.borderColor = 'red';
+      pw.setCustomValidity(
+        'Need big and small letters, atleast one number and special symbol'
+      );
       pw.reportValidity();
     }
   });
@@ -69,6 +77,7 @@ function checkCpw() {
     if (cpw.value == pw.value) {
       cpw.setCustomValidity('');
     } else {
+      cpw.style.borderColor = 'red';
       cpw.setCustomValidity('Nicht identisch??');
       cpw.reportValidity();
     }
