@@ -2,7 +2,8 @@ const mail = document.querySelector('#mail');
 const country = document.querySelector('#country');
 const zip = document.querySelector('#zip');
 const pw = document.querySelector('#pw');
-const cpw = document.querySelector('#pw');
+const cpw = document.querySelector('#cpw');
+const submit = document.querySelector('#submit');
 
 function checkMail() {
   console.log('bro');
@@ -50,7 +51,7 @@ function checkPw() {
   strongRegex = new RegExp(
     '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*])(?=.{8,})'
   );
-  pw.addEventListener('keyup', () => {
+  submit.addEventListener('click', (e) => {
     if (strongRegex.test(pw.value)) {
       console.log('safe');
       pw.setCustomValidity('');
@@ -62,7 +63,20 @@ function checkPw() {
   });
 }
 
+function checkCpw() {
+  cpw.required = true;
+  submit.addEventListener('click', () => {
+    if (cpw.value == pw.value) {
+      cpw.setCustomValidity('');
+    } else {
+      cpw.setCustomValidity('Nicht identisch??');
+      cpw.reportValidity();
+    }
+  });
+}
+
 checkMail();
 checkCountry();
 checkZip();
 checkPw();
+checkCpw();
